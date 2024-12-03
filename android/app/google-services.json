@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289902290574",
+    "project_id": "usbong-45c3e",
+    "storage_bucket": "usbong-45c3e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289902290574:android:cf0832568427620fb14bdf",
+        "android_client_info": {
+          "package_name": "com.usbong"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCOQlxEa1OgcXq737wvPa_GejvMNdOSfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
