@@ -10,8 +10,11 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors} from '../../../core/utils/constants'; // Adjust the path based on your file structure
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../../redux/reducers/userSlice';
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
   return (
     <LinearGradient
       colors={[colors.gradientStart, colors.gradientEnd]}
@@ -30,7 +33,11 @@ const LoginScreen = () => {
             secureTextEntry
             placeholderTextColor={colors.placeholderText}
             />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+            onPress={()=>{
+              dispatch(logIn());
+            }}
+          >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
