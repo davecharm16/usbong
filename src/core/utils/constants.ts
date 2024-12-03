@@ -4,9 +4,9 @@ const colors = {
   inputBackground: '#FFFFFF',
   inputBorder: '#000',
   placeholderText: '#777777',
-  buttonBackground: '#4CAF50',
+  buttonBackground: '#295A54',
   buttonText: '#FFFFFF',
-  titleText: '#333333',
+  titleText: '#295A54',
 };
 
 export  { colors };

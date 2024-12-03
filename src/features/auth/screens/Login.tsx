@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors} from '../../../core/utils/constants'; // Adjust the path based on your file structure
@@ -15,29 +16,31 @@ const LoginScreen = () => {
     <LinearGradient
       colors={[colors.gradientStart, colors.gradientEnd]}
       style={styles.gradient}>
+        <ScrollView contentContainerStyle={styles.containerStyle}>
         <View style={styles.container}>
           <Text style={styles.title}>USBONG</Text>
           <TextInput
             style={styles.input}
             placeholder="Username"
             placeholderTextColor={colors.placeholderText}
-          />
+            />
           <TextInput
             style={styles.input}
             placeholder="Password"
             secureTextEntry
             placeholderTextColor={colors.placeholderText}
-          />
+            />
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Sign In</Text>
+            <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
         <ImageBackground
           source={require('../../../assets/login/bg.png')}
-          resizeMode="cover"
+          resizeMode="contain"
           style={styles.image}
           height={20}
-        />
+          />
+        </ScrollView>
     </LinearGradient>
   );
 };
@@ -47,16 +50,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image : {
-    flex: 1,
+    height: 250,
+
+  },
+  containerStyle: {
+    flex:1,
   },
   container: {
-    flex: 1,
+    flex : 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
   },
   title: {
-    fontSize: 32,
+    fontSize: 48,
     fontWeight: 'bold',
     marginBottom: 40,
     color: colors.titleText,
