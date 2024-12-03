@@ -7,6 +7,11 @@ const colors = {
   buttonBackground: '#295A54',
   buttonText: '#FFFFFF',
   titleText: '#295A54',
+  homeGradient : [
+    '#BEFFD0',
+    '#FFFFFF',
+    '#559F6A',
+  ],
 };
 
 export  { colors };

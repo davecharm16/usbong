@@ -3,6 +3,7 @@ import { IUser } from '../../models/userModel';
 
 export interface IUserSlice {
   user : IUser
+  loggedIn: boolean,
 }
 
 const initialState: IUserSlice = {
@@ -11,9 +12,9 @@ const initialState: IUserSlice = {
     email : '',
     password : '',
     userId : '',
-    loggedIn : false,
     status : 'idle',
   },
+  loggedIn : false,
 };
 
 // export const fetchUserAsync = createAsyncThunk(
@@ -32,10 +33,10 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     logIn : (state) => {
-      state.user.loggedIn = true;
+      state.loggedIn = true;
     },
     logOut : (state) => {
-      state.user.loggedIn = false;
+      state.loggedIn = false;
     },
   },
 });

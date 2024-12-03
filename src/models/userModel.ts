@@ -3,6 +3,5 @@ export interface IUser {
   email : string;
   password : string;
   userId : string;
-  loggedIn : boolean;
   status : 'loading' | 'idle' | 'failed',
 }
