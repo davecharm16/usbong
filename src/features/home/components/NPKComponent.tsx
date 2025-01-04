@@ -41,6 +41,7 @@ const styles = ({color, percent}: {color: ColorValue; percent: number}) =>
       zIndex: 1,
       position: 'absolute',
       bottom: 10,
+      left: 10,
       color: colors.background,
     },
   });
