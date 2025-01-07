@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card} from 'react-native-paper';
 import NotifComponent from './NotifComponent';
@@ -6,31 +6,58 @@ import SoilComponent from './SoilComponent';
 import PHAndSalinity from './PHAndSalinity';
 import NPKComponent from './NPKComponent';
 import {colors} from '../../../core/utils/constants';
+import {useNPKStore} from '../../../hooks/useNPKStore';
 
 const CardComponent = () => {
+  const {data: npk, loading: npkLoading, error: npkError} = useNPKStore();
+
+  useEffect(() => {
+    console.log(npk);
+  }, [npk]);
+
+  if (npkLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (npkError) {
+    return <Text>Error: {npkError}</Text>;
+  }
+
   return (
     <Card style={styles.cardContainer}>
-      <View style={styles.rowOne}>
+      {/* First Row */}
+      <View style={styles.row}>
         <NotifComponent />
         <SoilComponent />
       </View>
-      <View style={styles.rowTwo}>
+
+      <View style={styles.row}>
         <PHAndSalinity />
         <View style={styles.wrapper}>
-          <NPKComponent title="N" percent={80} color={colors.primary} />
-          <NPKComponent title="P" percent={20} color={colors.secondary} />
-          <NPKComponent title="K" percent={100} color={colors.teal} />
+          <NPKComponent
+            title="N"
+            percent={(npk && npk?.n) || 0}
+            color={colors.primary}
+          />
+          <NPKComponent
+            title="P"
+            percent={(npk && npk?.p) || 0}
+            color={colors.secondary}
+          />
+          <NPKComponent
+            title="K"
+            percent={(npk && npk?.k) || 0}
+            color={colors.teal}
+          />
         </View>
       </View>
+
       <View>
-        <TouchableOpacity style={styles.buttonStyle}>
-          <Text style={{color: colors.background}}>Temperatute: 30 </Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Temperature: 30</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.buttonStyle, {backgroundColor: colors.secondary}]}>
-          <Text style={{color: colors.background, fontWeight: 'bold'}}>
-            Usbong
-          </Text>
+        <TouchableOpacity style={[styles.button, styles.secondaryButton]}>
+          <Text style={styles.secondaryButtonText}>USBONG</Text>
         </TouchableOpacity>
       </View>
     </Card>
@@ -40,28 +67,25 @@ const CardComponent = () => {
 const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: 50,
-    backgroundColor: '#fefefe',
+    backgroundColor: '#FEFEFE',
     minHeight: 600,
     minWidth: 300,
     flexDirection: 'column',
     padding: 20,
   },
-  rowOne: {
+  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 20,
     gap: 20,
   },
-  wrapper: {flex: 1, flexDirection: 'row', gap: 15},
-  rowTwo: {
-    paddingTop: 20,
-    maxHeight: 247,
+  wrapper: {
     flex: 1,
     flexDirection: 'row',
-    gap: 20,
-    justifyContent: 'space-between',
+    gap: 15,
   },
-  buttonStyle: {
+  button: {
     backgroundColor: colors.primary,
     borderRadius: 20,
     width: '100%',
@@ -69,6 +93,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
+  },
+  secondaryButton: {
+    backgroundColor: colors.secondary,
+  },
+  buttonText: {
+    color: colors.background,
+  },
+  secondaryButtonText: {
+    color: colors.background,
+    fontWeight: 'bold',
   },
 });
 
