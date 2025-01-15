@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Card} from 'react-native-paper';
 import IconComponent from './icons/IconComponent';
@@ -7,16 +7,25 @@ import EditIcon from '../../../core/icons/EditIcon';
 import TimeIcon from '../../../core/icons/TimeIcon';
 import BellIcon from '../../../core/icons/BellIcon';
 import {colors} from '../../../core/utils/constants';
+import {useUpdatePumpOn} from '../../../hooks/useUpdatePump';
 
 const NotifComponent = () => {
   const iconStyle = [styles.icon, {backgroundColor: colors.primary}];
+  const {updatePumpOn, loading, error} = useUpdatePumpOn();
+  const [pumpOn, setPumpOn] = useState(false);
+
+  const handleToggle = async () => {
+    const newPumpOnState = !pumpOn;
+    setPumpOn(newPumpOnState); // Optimistic update
+    await updatePumpOn(newPumpOnState);
+  };
 
   return (
     <Card style={styles.container}>
       <View style={styles.row}>
         <IconComponent
-          icon={<PowerIcon />}
-          onPress={() => {}}
+          icon={<PowerIcon color={pumpOn ? 'yellow' : 'white'} />}
+          onPress={handleToggle}
           style={iconStyle}
         />
         <IconComponent
