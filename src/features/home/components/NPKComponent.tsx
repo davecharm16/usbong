@@ -17,6 +17,7 @@ const NPKComponent = ({
   return (
     <Card style={style.container}>
       <Text style={style.text}>{title}</Text>
+      <Text style={style.text2}>{percent}</Text>
       <View style={style.view} />
     </Card>
   );
@@ -33,7 +34,7 @@ const styles = ({color, percent}: {color: ColorValue; percent: number}) =>
     },
     view: {
       backgroundColor: color,
-      height: percent,
+      height: percent >= 100 ? '100%' : percent,
       borderRadius: 999,
     },
     text: {
@@ -43,6 +44,15 @@ const styles = ({color, percent}: {color: ColorValue; percent: number}) =>
       bottom: 10,
       left: 10,
       color: colors.background,
+    },
+    text2: {
+      textAlign: 'center',
+      zIndex: 1,
+      position: 'absolute',
+      bottom: 25,
+      left: 5,
+      fontWeight: 'bold',
+      color: '#000',
     },
   });
 

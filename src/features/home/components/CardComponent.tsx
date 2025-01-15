@@ -7,19 +7,22 @@ import PHAndSalinity from './PHAndSalinity';
 import NPKComponent from './NPKComponent';
 import {colors} from '../../../core/utils/constants';
 import {useNPKStore} from '../../../hooks/useNPKStore';
+import {useMPSTStore} from '../../../hooks/useMPSTStore';
 
 const CardComponent = () => {
   const {data: npk, loading: npkLoading, error: npkError} = useNPKStore();
+  const {data: mpst, loading: mpstLoading, error: mpstError} = useMPSTStore();
 
   useEffect(() => {
     console.log(npk);
-  }, [npk]);
+    console.log(mpst);
+  }, [npk, mpst]);
 
-  if (npkLoading) {
+  if (npkLoading || mpstLoading) {
     return <Text>Loading...</Text>;
   }
 
-  if (npkError) {
+  if (npkError || mpstError) {
     return <Text>Error: {npkError}</Text>;
   }
 
@@ -28,11 +31,11 @@ const CardComponent = () => {
       {/* First Row */}
       <View style={styles.row}>
         <NotifComponent />
-        <SoilComponent />
+        <SoilComponent moisture={mpst?.moisture} />
       </View>
 
       <View style={styles.row}>
-        <PHAndSalinity />
+        <PHAndSalinity ph={mpst?.pH} salinity={mpst?.salinity} />
         <View style={styles.wrapper}>
           <NPKComponent
             title="N"
