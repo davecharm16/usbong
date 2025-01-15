@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card} from 'react-native-paper';
 import NotifComponent from './NotifComponent';
 import SoilComponent from './SoilComponent';
@@ -57,9 +57,16 @@ const CardComponent = () => {
 
       <View>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Temperature: 30</Text>
+          <Text style={styles.buttonText}>
+            Temperature: {mpst?.temperature}°C
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.secondaryButton]}>
+          <Image
+            source={require('../../../assets/home/leaf-logo.webp')}
+            style={{width: 30, height: 30}}
+            resizeMode="cover"
+          />
           <Text style={styles.secondaryButtonText}>USBONG</Text>
         </TouchableOpacity>
       </View>
@@ -96,12 +103,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
+    flexDirection: 'row',
   },
   secondaryButton: {
     backgroundColor: colors.secondary,
   },
   buttonText: {
     color: colors.background,
+    fontWeight: 'bold',
+    fontSize: 15,
+    textTransform: 'uppercase',
   },
   secondaryButtonText: {
     color: colors.background,
