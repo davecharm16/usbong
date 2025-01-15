@@ -18,8 +18,22 @@ export const useUpdatePumpOn = () => {
     }
   };
 
+  const updateAutoPumpOn = async (autoPumpOn: boolean): Promise<void> => {
+    setLoading(true);
+    setError(null);
+    try {
+      await pumpControlRepository.updatePumpControl({ autoPumpOn });
+      console.log('autoPumpOn value updated successfully.');
+    } catch (err: any) {
+      setError(err.message || 'Failed to update autoPumpOn value.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     updatePumpOn,
+    updateAutoPumpOn,
     loading,
     error,
   };

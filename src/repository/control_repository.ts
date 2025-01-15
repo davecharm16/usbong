@@ -5,6 +5,7 @@ export interface PumpControl {
   autoOnMinute: number;
   moistureThreshold: number;
   pumpOn: boolean;
+  autoPumpOn: boolean;
 }
 
 class PumpControlRepository {

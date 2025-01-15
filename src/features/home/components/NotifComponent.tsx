@@ -7,7 +7,6 @@ import {
   TextInput,
   Button,
   Alert,
-  ActivityIndicator,
 } from 'react-native';
 import {Card} from 'react-native-paper';
 import IconComponent from './icons/IconComponent';
@@ -23,7 +22,7 @@ const NotifComponent = () => {
   const iconStyle = [styles.icon, {backgroundColor: colors.primary}];
   const {
     updatePumpOn,
-    loading: pumpOnLoading,
+    updateAutoPumpOn,
     error: pumpOnError,
   } = useUpdatePumpOn();
   const {
@@ -33,6 +32,7 @@ const NotifComponent = () => {
   } = useUpdatePumpSettings();
 
   const [pumpOn, setPumpOn] = useState(false);
+  const [autoPumpOn, setAutoPumpOn] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [formData, setFormData] = useState({
     moistureThreshold: '',
@@ -45,6 +45,16 @@ const NotifComponent = () => {
     setPumpOn(newPumpOnState); // Optimistic update
     try {
       await updatePumpOn(newPumpOnState);
+    } catch (err) {
+      Alert.alert('Error', pumpOnError || 'Failed to toggle pump state.');
+    }
+  };
+
+  const handleAutoOnToggle = async () => {
+    const newAutoOnState = !autoPumpOn;
+    setAutoPumpOn(newAutoOnState); // Optimistic update
+    try {
+      await updateAutoPumpOn(newAutoOnState);
     } catch (err) {
       Alert.alert('Error', pumpOnError || 'Failed to toggle pump state.');
     }
@@ -113,8 +123,8 @@ const NotifComponent = () => {
         </View>
         <View style={styles.row}>
           <IconComponent
-            icon={<TimeIcon />}
-            onPress={() => {}}
+            icon={<TimeIcon color={autoPumpOn ? 'yellow' : 'white'} />}
+            onPress={handleAutoOnToggle}
             style={iconStyle}
           />
           <IconComponent
@@ -124,15 +134,6 @@ const NotifComponent = () => {
           />
         </View>
       </Card>
-
-      {/* Loading Indicators */}
-      {(pumpOnLoading || settingsLoading) && (
-        <ActivityIndicator
-          size="large"
-          color={colors.primary}
-          style={styles.loading}
-        />
-      )}
 
       {/* Modal */}
       <Modal
