@@ -17,6 +17,7 @@ import BellIcon from '../../../core/icons/BellIcon';
 import {colors} from '../../../core/utils/constants';
 import {useUpdatePumpOn} from '../../../hooks/useUpdatePump';
 import {useUpdatePumpSettings} from '../../../hooks/useUpdatePumpSettings';
+import {usePumpStore} from '../../../hooks/usePumpStore';
 
 const NotifComponent = () => {
   const iconStyle = [styles.icon, {backgroundColor: colors.primary}];
@@ -25,19 +26,22 @@ const NotifComponent = () => {
     updateAutoPumpOn,
     error: pumpOnError,
   } = useUpdatePumpOn();
+  const {data: pumpControlData} = usePumpStore();
   const {
     updatePumpSettings,
     loading: settingsLoading,
     error: settingsError,
   } = useUpdatePumpSettings();
 
-  const [pumpOn, setPumpOn] = useState(false);
-  const [autoPumpOn, setAutoPumpOn] = useState(false);
+  const [pumpOn, setPumpOn] = useState(pumpControlData?.pumpOn || false);
+  const [autoPumpOn, setAutoPumpOn] = useState(
+    pumpControlData?.autoPumpOn || false,
+  );
   const [modalVisible, setModalVisible] = useState(false);
   const [formData, setFormData] = useState({
-    moistureThreshold: '',
-    autoOnHour: '',
-    autoOnMinute: '',
+    moistureThreshold: pumpControlData?.moistureThreshold?.toString() || '',
+    autoOnHour: pumpControlData?.autoOnHour?.toString() || '',
+    autoOnMinute: pumpControlData?.autoOnMinute?.toString() || '',
   });
 
   const handleToggle = async () => {
@@ -111,7 +115,9 @@ const NotifComponent = () => {
       <Card style={styles.container}>
         <View style={styles.row}>
           <IconComponent
-            icon={<PowerIcon color={pumpOn ? 'yellow' : 'white'} />}
+            icon={
+              <PowerIcon color={pumpControlData?.pumpOn ? 'yellow' : 'white'} />
+            }
             onPress={handleToggle}
             style={iconStyle}
           />
@@ -123,7 +129,11 @@ const NotifComponent = () => {
         </View>
         <View style={styles.row}>
           <IconComponent
-            icon={<TimeIcon color={autoPumpOn ? 'yellow' : 'white'} />}
+            icon={
+              <TimeIcon
+                color={pumpControlData?.autoPumpOn ? 'yellow' : 'white'}
+              />
+            }
             onPress={handleAutoOnToggle}
             style={iconStyle}
           />
