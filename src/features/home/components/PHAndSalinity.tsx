@@ -17,7 +17,7 @@ const PHAndSalinity: React.FC<PHAndSalinityProps> = ({ph, salinity}) => {
       </Card>
       <Card style={[styles.cardStyle, {backgroundColor: '#84945C'}]}>
         <Text style={styles.titleText}>Soil Salinity</Text>
-        <Text style={styles.valueText}>{salinity ?? ''}</Text>
+        <Text style={styles.valueText}>{salinity ?? ''}%</Text>
       </Card>
     </View>
   );

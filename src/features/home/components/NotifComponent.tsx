@@ -18,6 +18,11 @@ import {colors} from '../../../core/utils/constants';
 import {useUpdatePumpOn} from '../../../hooks/useUpdatePump';
 import {useUpdatePumpSettings} from '../../../hooks/useUpdatePumpSettings';
 import {usePumpStore} from '../../../hooks/usePumpStore';
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from '@react-navigation/native';
 
 const NotifComponent = () => {
   const iconStyle = [styles.icon, {backgroundColor: colors.primary}];
@@ -32,6 +37,8 @@ const NotifComponent = () => {
     loading: settingsLoading,
     error: settingsError,
   } = useUpdatePumpSettings();
+
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   const [pumpOn, setPumpOn] = useState(pumpControlData?.pumpOn || false);
   const [autoPumpOn, setAutoPumpOn] = useState(
@@ -139,7 +146,9 @@ const NotifComponent = () => {
           />
           <IconComponent
             icon={<BellIcon />}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate('Notification');
+            }}
             style={iconStyle}
           />
         </View>
