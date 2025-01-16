@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../../core/utils/constants';
+import CardComponent from '../components/CardComponent';
 
 const HomeScreen = () => {
   return (
@@ -11,7 +12,7 @@ const HomeScreen = () => {
       styles.gradient
     }
     >
-      <Text>Homescreen</Text>
+      <CardComponent/>
     </LinearGradient>
   );
 };
@@ -19,6 +20,9 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   gradient : {
     flex : 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
   },
 });
 
